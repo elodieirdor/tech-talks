@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "techtalks",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Tech talks project",
     "keywords": [
         "framework",
         "laravel"
@@ -13,7 +13,8 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.24",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "laravel/ui": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
