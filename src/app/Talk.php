@@ -11,6 +11,10 @@ class Talk extends Model
     const STATUS = [self::STATUS_PUBLISHED, self::STATUS_DRAFT];
 
     protected $fillable = [
-        'topic', 'description', 'date', 'status'
+        'topic', 'description', 'date', 'status',
+    ];
+
+    protected $visible = [
+        'id', 'topic', 'description', 'date', 'status',
     ];
 }
