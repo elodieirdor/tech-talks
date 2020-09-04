@@ -27,6 +27,9 @@ Create the database schema
 
 ``docker-compose run --rm artisan migrate``
 
+Add some fake data
+
+``docker-compose run --rm artisan db:seed``
 
 Install the npm dependencies
 
