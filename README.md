@@ -39,6 +39,10 @@ Run npm
 
 ``docker-compose run --rm npm run dev``
 
+Run tests
+
+``docker-compose run --rm artisan test``
+
 
 ## Environment URLs
 
