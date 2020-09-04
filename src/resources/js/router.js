@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ExampleComponent from './components/ExampleComponent';
+import IndexTalksPage from './pages/IndexTalksPage';
 
 Vue.use(VueRouter);
 
@@ -9,7 +9,7 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'index',
-      component: ExampleComponent
+      component: IndexTalksPage
     }
   ]
 });
