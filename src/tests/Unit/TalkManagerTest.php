@@ -38,5 +38,4 @@ class TalkManagerTest extends TestCase
         $expected = new \DateTime('2021-02-03');
         $this->assertEquals($nextDate, $expected);
     }
-
 }
