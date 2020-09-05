@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Factory\Model\TalkFactory;
+use App\Http\Requests\StoreTalk;
 use App\Manager\TalkManager;
 use App\Repository\TalkRepository;
 
@@ -39,6 +41,19 @@ class TalkController extends Controller
                 'success' => true,
                 'data' => $talks
             ]
+        );
+    }
+
+    public function createTalk(StoreTalk $request, TalkFactory $talkFactory)
+    {
+        $talk = $talkFactory->createFromRequest($request, auth()->user());
+
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $talk
+            ],
+            201
         );
     }
 }

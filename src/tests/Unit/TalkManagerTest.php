@@ -38,4 +38,52 @@ class TalkManagerTest extends TestCase
         $expected = new \DateTime('2021-02-03');
         $this->assertEquals($nextDate, $expected);
     }
+
+    public function testisSubmissionDateValidWithOddMonth()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2020-01-01');
+        $currentDate = new \DateTime('2019-12-31');
+        $this->assertFalse($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
+
+    public function testisSubmissionDateValidWithPastDate()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2019-12-03');
+        $currentDate = new \DateTime('2019-12-31');
+        $this->assertFalse($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
+
+    public function testisSubmissionDateValidWithMonthLimit()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2020-08-04');
+        $currentDate = new \DateTime('2019-12-31');
+        $this->assertFalse($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
+
+    public function testisSubmissionDateValidWithEvenMonthAndWrongDay()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2020-02-06');
+        $currentDate = new \DateTime('2019-12-31');
+        $this->assertFalse($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
+
+    public function testisSubmissionDateValidWithCorrectDate()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2020-02-04');
+        $currentDate = new \DateTime('2019-12-31');
+        $this->assertTrue($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
+
+    public function testisSubmissionDateValidWithDateInCurrentMonth()
+    {
+        $talkManager = new TalkManager();
+        $submissionDate = new \DateTime('2020-10-06');
+        $currentDate = new \DateTime('2020-10-05');
+        $this->assertTrue($talkManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
 }
