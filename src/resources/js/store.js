@@ -16,6 +16,11 @@ const store = new Vuex.Store({
 
             localStorage.setItem('user', JSON.stringify(state.user));
             localStorage.setItem('token', state.token);
+        },
+        autoAuthenticate (state) {
+            state.user = JSON.parse(localStorage.getItem('user'));
+            state.token = localStorage.getItem('token');
+            state.isAuthenticated = true;
         }
     }
 })
