@@ -1,6 +1,17 @@
 <template>
     <div>
-        <h1>My talks</h1>
+        <div class="row">
+            <div class="col-sm-9"><h1>My talks</h1></div>
+            <div class="col-sm-3 text-sm-right">
+                <router-link
+                    :to="{ name: 'add_talk'}"
+                    tag="button"
+                    class="btn mr-1 btn-secondary btn-sm"
+                >
+                    Add
+                </router-link>
+            </div>
+        </div>
         <TalkList :talks="items" :busy="isBusy" :canEdit="true"></TalkList>
     </div>
 </template>

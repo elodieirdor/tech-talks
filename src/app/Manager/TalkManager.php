@@ -5,6 +5,7 @@ namespace App\Manager;
 class TalkManager
 {
     const TALK_DAY = 'wednesday';
+    const SUBMISSION_TALK_DAY = 'tuesday';
 
     /**
      * The talks are run on the first Wednesday of every even month
@@ -37,5 +38,39 @@ class TalkManager
         $d->modify("first $talkDay of next month");
 
         return $d;
+    }
+
+    /**
+     * @param \DateTime $submissionDate
+     * @param \DateTime|null $currentDate
+     * @return bool
+     */
+    public function isSubmissionDateValid(\DateTime $submissionDate, \DateTime $currentDate = null) : bool
+    {
+        $currentDate = $currentDate ?? new \DateTime();
+        $currentDate->setTime(0,0);
+
+        if ($submissionDate < $currentDate) {
+            return false;
+        }
+
+        $maxDate = clone $currentDate;
+        $maxDate->modify('+6 months');
+        if ($submissionDate > $maxDate) {
+            return false;
+        }
+
+        $month = $submissionDate->format('m');
+        if ($month % 2 !== 0) {
+            return false;
+        }
+
+        $str = sprintf("first %s %d-%d", self::SUBMISSION_TALK_DAY, $submissionDate->format('Y'), $month);
+        $submissionDayOfMonth = (new \DateTime())->setTimestamp(strtotime($str))->setTime(0, 0);
+        if ($submissionDate != $submissionDayOfMonth) {
+            return false;
+        }
+
+        return true;
     }
 }
