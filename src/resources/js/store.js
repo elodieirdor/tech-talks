@@ -21,6 +21,14 @@ const store = new Vuex.Store({
             state.user = JSON.parse(localStorage.getItem('user'));
             state.token = localStorage.getItem('token');
             state.isAuthenticated = true;
+        },
+        logout (state) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+
+            state.user = null;
+            state.token = null;
+            state.isAuthenticated = false;
         }
     }
 })
