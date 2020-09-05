@@ -59,6 +59,29 @@ class TalkController extends Controller
         );
     }
 
+    public function read(int $id)
+    {
+        /** @var Talk $talk */
+        $talk = auth()->user()->talks->find($id);
+
+        if (null === $talk) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'The talk does not exist'
+                ],
+                500
+            );
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $talk
+            ]
+        );
+    }
+
     public function edit(StoreTalk $request, int $id, TalkManager $talkManager)
     {
         /** @var Talk $talk */
