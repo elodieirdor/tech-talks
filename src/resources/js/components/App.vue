@@ -15,11 +15,6 @@ export default {
     components: {
         AppHeader,
     },
-    mounted() {
-        if (localStorage.getItem('user') && localStorage.getItem('token')) {
-            this.$store.commit('autoAuthenticate');
-        }
-    }
 };
 </script>
 

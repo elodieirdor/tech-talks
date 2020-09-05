@@ -11,6 +11,10 @@ Vue.config.productionTip = false;
 
 require('./bootstrap');
 
+if (localStorage.getItem('user') && localStorage.getItem('token')) {
+    store.commit('autoAuthenticate');
+}
+
 const app = new Vue({
     el: '#app',
     components: {
