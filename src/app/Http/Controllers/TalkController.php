@@ -7,7 +7,10 @@ use App\Repository\TalkRepository;
 
 class TalkController extends Controller
 {
-    private $talkRepository;
+    /**
+     * @var TalkRepository
+     */
+    private TalkRepository $talkRepository;
 
     public function __construct(TalkRepository $talkRepository)
     {
@@ -19,6 +22,23 @@ class TalkController extends Controller
         $date = $talkManager->getNextTalkDate(new \DateTime());
         $talks = $this->talkRepository->getUpcoming($date);
 
-        return $talks;
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $talks
+            ]
+        );
+    }
+
+    public function userTalks()
+    {
+        $talks = auth()->user()->talks;
+
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $talks
+            ]
+        );
     }
 }
