@@ -17,4 +17,9 @@ class TalkManager
 
         return $talk->fill($data)->save();
     }
+
+    public function publish(Talk $talk): bool
+    {
+        return $talk->fill(['status' => Talk::STATUS_PUBLISHED])->save();
+    }
 }
