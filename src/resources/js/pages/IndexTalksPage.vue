@@ -25,7 +25,7 @@ export default {
           this.isBusy = false;
         })
         .catch(error => {
-          this.handleApiError(error)
+            console.log(error);
         })
     }
   },
