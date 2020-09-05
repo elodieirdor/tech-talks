@@ -28,7 +28,7 @@ class AuthResponse
         $this->token = $token;
     }
 
-    public function toArray()
+    public function toArray() : array
     {
         return [
             'token' => $this->token,

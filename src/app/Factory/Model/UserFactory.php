@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserFactory
 {
-    public function createFromRequest(Request  $request)
+    public function createFromRequest(Request  $request) : User
     {
         $user = new User;
         $user->name = $request->name;
