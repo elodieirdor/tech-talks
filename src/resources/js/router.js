@@ -4,6 +4,7 @@ import IndexTalksPage from './pages/IndexTalksPage';
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import store from './store';
+import UserTalksPage from "./pages/UserTalksPage";
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,14 @@ const router = new VueRouter({
             component: LoginPage,
             meta: {
                 guest: true
+            }
+        },
+        {
+            path: '/my-talks',
+            name: 'user_talks',
+            component: UserTalksPage,
+            meta: {
+                requiresAuth: true
             }
         },
     ]

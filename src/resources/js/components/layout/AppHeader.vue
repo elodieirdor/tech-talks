@@ -7,7 +7,7 @@
               <template v-slot:button-content>
                   <em>{{$store.state.user.name}}</em>
               </template>
-              <b-dropdown-item href="#">My talks</b-dropdown-item>
+              <b-dropdown-item :to="{ name: 'user_talks' }">My talks</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-navbar-nav right v-else>

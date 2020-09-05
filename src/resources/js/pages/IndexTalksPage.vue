@@ -21,11 +21,11 @@ export default {
       window.axios
         .get('/api/talks/upcoming')
         .then(response => {
-          this.items = response.data;
+          this.items = response.data.data;
           this.isBusy = false;
         })
         .catch(error => {
-          this.handleApiError(error)
+            console.log(error);
         })
     }
   },
