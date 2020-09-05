@@ -3,4 +3,4 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/talks/upcoming', 'TalkController@upcoming');
-Route::post('/register', 'AuthController@register');
+Route::post('/user/register', 'AuthController@register');
