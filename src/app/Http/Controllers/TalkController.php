@@ -70,7 +70,7 @@ class TalkController extends Controller
                     'success' => false,
                     'message' => 'The talk does not exist'
                 ],
-                500
+                404
             );
         }
 
@@ -93,6 +93,40 @@ class TalkController extends Controller
                 [
                     'success' => false,
                     'message' => 'An error occurred while saving the talk'
+                ],
+                500
+            );
+        }
+
+        return response()->json(
+            [
+                'success' => true,
+                'data' => $talk
+            ]
+        );
+    }
+
+    public function publish(int $id, TalkManager $talkManager)
+    {
+        /** @var Talk $talk */
+        $talk = auth()->user()->talks->find($id);
+
+        if (null === $talk) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'The talk does not exist'
+                ],
+                404
+            );
+        }
+
+        $published = $talkManager->publish($talk);
+        if (false === $published) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'An error occurred while publishing the talk'
                 ],
                 500
             );

@@ -10,5 +10,6 @@ Route::middleware(['auth:api'])->group(
         Route::post('/talks', 'TalkController@create');
         Route::get('/talks/{id}', 'TalkController@read');
         Route::post('/talks/{id}', 'TalkController@edit');
+        Route::put('/talks/{id}', 'TalkController@publish');
     }
 );
