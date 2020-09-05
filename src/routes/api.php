@@ -7,6 +7,8 @@ Route::post('/user/register', 'AuthController@register');
 Route::middleware(['auth:api'])->group(
     function () {
         Route::get('/user/my-talks', 'TalkController@userTalks');
-        Route::post('/talks', 'TalkController@createTalk');
+        Route::post('/talks', 'TalkController@create');
+        Route::get('/talks/{id}', 'TalkController@read');
+        Route::post('/talks/{id}', 'TalkController@edit');
     }
 );

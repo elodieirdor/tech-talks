@@ -2,19 +2,19 @@
 
 namespace App\Rules;
 
-use App\Manager\TalkManager;
+use App\Manager\TalkDateManager;
 use Illuminate\Contracts\Validation\Rule;
 
 class TalkDate implements Rule
 {
-    protected TalkManager $talkManager;
+    protected TalkDateManager $talkDateManager;
 
     /**
      * Create a new rule instance.
      */
     public function __construct()
     {
-        $this->talkManager = resolve(TalkManager::class);
+        $this->talkDateManager = resolve(TalkDateManager::class);
     }
 
     /**
@@ -28,7 +28,7 @@ class TalkDate implements Rule
     {
         $date = new \DateTime($value);
 
-        return $this->talkManager->isSubmissionDateValid($date);
+        return $this->talkDateManager->isSubmissionDateValid($date);
     }
 
     /**
