@@ -347,6 +347,73 @@ class TalkController extends Controller
         );
     }
 
+    /**
+     * @OA\Put(
+     *     path="/talks/{id}",
+     *     tags={"talk"},
+     *     summary="Publish a talk",
+     *     operationId="publish",
+     *     security={
+     *          {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Talk updated",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/Talk"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Talk not found",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=500,
+     *          description="Error publishing",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *)
+     **/
     public function publish(int $id, TalkManager $talkManager)
     {
         /** @var Talk $talk */
