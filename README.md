@@ -2,26 +2,30 @@
 
 ## Installation
 
-Create a copy of the .env.example 
+### Create parameters for the environment
+Create a copy of the .env.example and update it if needed
 
 ``
 cp .env.example .env 
 ``
 
-Update the values of the new .env file if needed
-
-Create a copy of the src/.env.example 
+Create a copy of the src/.env.example and update it if needed
 
 ``
 cp src/.env.example src/.env
 ``
 
-Update the values of the new .env file if needed
-
+### Run the environment
 
 Run docker 
 
 ``docker-compose up -d --build``
+
+Install the dependencies
+
+``docker-compose run --rm composer install``
+
+``docker-compose run --rm npm install``
 
 Create the database schema
 
@@ -31,18 +35,16 @@ Add some fake data
 
 ``docker-compose run --rm artisan db:seed``
 
-Install the npm dependencies
+Generate keys for the app
 
-``docker-compose run --rm npm install``
+``docker-compose run --rm artisan key:generate``
 
-Run npm
+``docker-compose run --rm artisan passport:install``
+
+
+Run the app
 
 ``docker-compose run --rm npm run dev``
-
-Run tests
-
-``docker-compose run --rm artisan test``
-
 
 ## Environment URLs
 
@@ -51,6 +53,10 @@ App : http://localhost:8088/
 phpMyAdmin : http://localhost:8080/ 
 
 Swagger documentation : http://localhost:8088/api/documentation
+
+## Tests
+
+``docker-compose run --rm artisan test``
 
 ## Run commands
 
