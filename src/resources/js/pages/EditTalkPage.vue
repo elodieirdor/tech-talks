@@ -21,11 +21,8 @@ export default {
     },
     methods: {
         getTalk() {
-            const config = {
-                headers: {Authorization: `Bearer ${this.$store.state.token}`}
-            }
             window.axios
-                .get(`/api/talks/${this.$route.params.id}`, config)
+                .get(`/api/talks/${this.$route.params.id}`)
                 .then(response => {
                     this.talk = response.data.data
                 })

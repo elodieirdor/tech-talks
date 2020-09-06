@@ -118,11 +118,8 @@ export default {
                 url = '/api/talks';
             }
 
-            const config = {
-                headers: {Authorization: `Bearer ${this.$store.state.token}`}
-            }
             window.axios
-                .post(url, talk, config)
+                .post(url, talk)
                 .then(response => {
                     this.reset();
                     this.$router.push({name: 'user_talks'});

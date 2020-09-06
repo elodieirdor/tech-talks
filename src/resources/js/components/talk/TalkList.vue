@@ -53,11 +53,8 @@ export default {
     methods: {
         publish(id, index) {
             this.isPublishing = true;
-            const config = {
-                headers: {Authorization: `Bearer ${this.$store.state.token}`}
-            }
             window.axios
-                .put(`/api/talks/${id}`, {}, config)
+                .put(`/api/talks/${id}`)
                 .then(response => {
                     this.talks.splice(index, 1, response.data.data)
                 })
