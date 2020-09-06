@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use App\Rules\TalkDate;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreTalkRequest extends FormRequest
 {
     protected Talk $talk;
+    protected bool $isNew = true;
 
     public function authorize()
     {
@@ -23,17 +25,22 @@ class StoreTalkRequest extends FormRequest
         }
 
         $this->talk = $talk;
+        $this->isNew = false;
 
         return true;
     }
 
     public function withValidator($validator)
     {
-        $validator->after(function ($validator) {
-            if ($this->talk->status === Talk::STATUS_PUBLISHED) {
-                $validator->errors()->add('status', 'Published talk can not be updated');
+        $validator->after(
+            function ($validator) {
+                if (false === $this->isNew) {
+                    if ($this->talk->status === Talk::STATUS_PUBLISHED) {
+                        $validator->errors()->add('status', 'Published talk can not be updated');
+                    }
+                }
             }
-        });
+        );
     }
 
     public function rules()
