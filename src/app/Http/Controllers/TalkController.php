@@ -57,6 +57,39 @@ class TalkController extends Controller
         );
     }
 
+    /**
+     * @OA\Get(
+     *     path="/user/my-talks",
+     *     tags={"talks"},
+     *     summary="List user talks",
+     *     operationId="userTalks",
+     *     security={
+     *          {"bearerAuth": {}}
+     *     },
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/Talk")
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
+     *     ),
+     *)
+     **/
     public function userTalks()
     {
         $talks = auth()->user()->talks->sortBy('date')->values()->all();
