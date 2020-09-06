@@ -21,6 +21,29 @@ class TalkController extends Controller
         $this->talkRepository = $talkRepository;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talks/upcoming",
+     *     tags={"talks"},
+     *     summary="List upcoming talks",
+     *     operationId="upcoming",
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(ref="#/components/schemas/Talk")
+     *              )
+     *          )
+     *     ),
+     *)
+     **/
     public function upcoming(TalkDateManager $talkDateManager)
     {
         $date = $talkDateManager->getNextTalkDate(new \DateTime());
