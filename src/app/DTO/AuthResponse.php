@@ -5,14 +5,34 @@ namespace App\DTO;
 
 use App\User;
 
+/**
+ * @OA\Schema(
+ *     title="AuthResponse",
+ *     description="Response to authenticate an user",
+ *     type="object"
+ * )
+ */
 class AuthResponse
 {
     /**
+     * @OA\Property(
+     *     title="user",
+     *     description="Name of the user",
+     *     type="object",
+     *     ref="#/components/schemas/User"
+     * )
+     *
      * @var User
      */
     protected User $user;
 
     /**
+     * @OA\Property(
+     *     title="token",
+     *     description="Authentication token for user",
+     *     type="string"
+     * )
+     *
      * @var string
      */
     protected string $token;

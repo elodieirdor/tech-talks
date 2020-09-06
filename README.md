@@ -50,6 +50,8 @@ App : http://localhost:8088/
 
 phpMyAdmin : http://localhost:8080/ 
 
+Swagger documentation : http://localhost:8088/api/documentation
+
 ## Run commands
 
 composer : ``docker-compose run --rm composer COMPOSER_COMMAND``

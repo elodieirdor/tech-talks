@@ -6,9 +6,45 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * @OA\Schema(
+ *     title="User",
+ *     description="User",
+ *     type="object"
+ * )
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
+
+    /**
+     * @OA\Property(
+     *     title="name",
+     *     property="name",
+     *     description="Name of the user",
+     *     type="string",
+     * )
+     */
+
+    /**
+     * @OA\Property(
+     *     title="email",
+     *     property="email",
+     *     description="Email of the user",
+     *     type="string",
+     * )
+     */
+
+    /**
+     * @OA\Property(
+     *     title="id",
+     *     property="id",
+     *     description="ID of the user",
+     *     type="number",
+     * )
+     */
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +52,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -25,7 +63,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -38,7 +77,9 @@ class User extends Authenticatable
     ];
 
     protected $visible = [
-        'id', 'name', 'email'
+        'id',
+        'name',
+        'email'
     ];
 
     public function talks()

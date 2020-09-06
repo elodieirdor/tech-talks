@@ -6,7 +6,7 @@ use App\Rules\TalkDescription;
 use App\Talk;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTalk extends FormRequest
+class StoreTalkRequest extends FormRequest
 {
     public function authorize()
     {
