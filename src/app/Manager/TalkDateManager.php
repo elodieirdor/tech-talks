@@ -22,7 +22,7 @@ class TalkDateManager
 
         if ($month % 2 === 0) {
             // get first wednesday of the month
-            // ie : first wednesday 2020-12
+            // ie : first wednesday of December 2020
             $str = sprintf("first %s of %s %d", self::TALK_DAY, $date->format('F'), $date->format('Y'), );
             $talkOfMonth = (new \DateTime())->setTimestamp(strtotime($str))->setTime(0, 0);
 

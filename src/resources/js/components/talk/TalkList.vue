@@ -20,13 +20,6 @@
                             btn-class="btn-success btn-sm"
                             @onBtnClick="publish(row.item.id, row.index)"
                             v-if="row.item.status !== 'published'"/>
-<!--                <button-->
-<!--                    type="button"-->
-<!--                    class="btn btn-success btn-sm"-->
-<!--                    @click="publish(row.item.id, row.index)"-->
-<!--                    v-if="row.item.status !== 'published'"-->
-<!--                >Publish-->
-<!--                </button>-->
                 <span v-else>Published</span>
             </template>
         </b-table>
@@ -35,6 +28,7 @@
 
 <script>
 import FormButton from "../ui/FormButton";
+
 export default {
     name: "TalkList",
     components: {FormButton},
@@ -63,9 +57,9 @@ export default {
                         this.errors = error.response.data.errors;
                     }
                 })
-            .finally(() => {
-                this.isPublishing = false;
-            })
+                .finally(() => {
+                    this.isPublishing = false;
+                })
         }
     },
     props: {
