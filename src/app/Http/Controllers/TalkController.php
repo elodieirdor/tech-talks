@@ -252,6 +252,77 @@ class TalkController extends Controller
         );
     }
 
+    /**
+     * @OA\Post(
+     *     path="/talks/{id}",
+     *     tags={"talk"},
+     *     summary="Edit a talk",
+     *     operationId="edit",
+     *     security={
+     *          {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreTalkRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Talk updated",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/Talk"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *              @OA\Property(
+     *                  property="errors",
+     *                  type="object"
+     *              ),
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=403,
+     *          description="Unauthorised",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *)
+     **/
     public function edit(StoreTalkRequest $request, int $id, TalkManager $talkManager)
     {
         /** @var Talk $talk */
