@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\DTO\Request;
+namespace App\DTO\Virtual\Request;
 
 /**
  * @OA\Schema(

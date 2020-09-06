@@ -48,6 +48,43 @@
                     }
                 }
             }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Log an user in the app",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LogUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -62,6 +99,28 @@
                     "token": {
                         "title": "token",
                         "description": "Authentication token for user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LogUserRequest": {
+                "title": "Log User request",
+                "description": "Log User request body data",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Password of the user",
                         "type": "string"
                     }
                 },

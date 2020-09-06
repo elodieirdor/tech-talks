@@ -41,6 +41,30 @@ class AuthController extends Controller
        return response()->json($authResponse->toArray(), 200);
     }
 
+    /**
+     * @OA\Post(
+     *     path="/user/login",
+     *     tags={"user"},
+     *     summary="Log an user in the app",
+     *     operationId="login",
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/LogUserRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(ref="#/components/schemas/AuthResponse")
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
+     *     ),
+     *)
+     **/
     public function login(Request $request, AuthResponseFactory $authResponseFactory)
     {
        $data = [
