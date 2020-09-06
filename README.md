@@ -59,3 +59,7 @@ composer : ``docker-compose run --rm composer COMPOSER_COMMAND``
 npm : ``docker-compose run --rm npm NPM_COMMAND``
 
 artisan : ``docker-compose run --rm artisan ARTISAN_COMMAND``
+
+## TODO
+
+[Some improvements can be done](TODO.md)
