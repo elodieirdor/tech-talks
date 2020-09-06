@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 use App\Rules\AppPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUser extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     public function authorize()
     {

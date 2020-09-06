@@ -1,0 +1,127 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tech talks",
+        "description": "API documentation for tech talks",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8088/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/user/register": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Register an user in the app",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreUserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthResponse": {
+                "title": "AuthResponse",
+                "description": "Response to authenticate an user",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "token": {
+                        "title": "token",
+                        "description": "Authentication token for user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreUserRequest": {
+                "title": "Store User request",
+                "description": "Store User request body data",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Password of the user with at least one uppercase character, one lowercase character,\n     * one number, one special char",
+                        "type": "string",
+                        "maximum": 20,
+                        "minimum": 8
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "title": "User",
+                "description": "User",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Email of the user",
+                        "type": "string"
+                    },
+                    "id": {
+                        "title": "id",
+                        "description": "ID of the user",
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

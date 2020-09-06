@@ -19,17 +19,18 @@ class AppPassword implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
         $uppercase = preg_match('@[A-Z]@', $value);
         $lowercase = preg_match('@[a-z]@', $value);
-        $number    = preg_match('@[0-9]@', $value);
+        $number = preg_match('@[0-9]@', $value);
+        $specialChar = preg_match('@[^a-zA-Z\d]@', $value);
 
-        if(!$uppercase || !$lowercase || !$number || strlen($value) < 8 || strlen($value) > 20) {
+        if (!$uppercase || !$lowercase || !$number || !$specialChar || strlen($value) < 8 || strlen($value) > 20) {
             return false;
         }
 
