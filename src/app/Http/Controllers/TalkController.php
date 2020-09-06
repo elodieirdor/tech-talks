@@ -115,6 +115,61 @@ class TalkController extends Controller
         );
     }
 
+    /**
+     * @OA\Get(
+     *     path="/talks/{id}",
+     *     tags={"talks"},
+     *     summary="List a user talk",
+     *     operationId="read",
+     *     security={
+     *          {"bearerAuth": {}}
+     *     },
+     *     @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Talk"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\MediaType(
+     *              mediaType="application/json",
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=404,
+     *          description="Not found",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean",
+     *              ),
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *              )
+     *          )
+     *     ),
+     *)
+     **/
     public function read(int $id)
     {
         /** @var Talk $talk */
