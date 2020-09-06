@@ -8,6 +8,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTalkRequest extends FormRequest
 {
+    protected Talk $talk;
+
     public function authorize()
     {
         $id = $this->route('id');
@@ -20,11 +22,18 @@ class StoreTalkRequest extends FormRequest
             return false;
         }
 
-        if ($talk->status === Talk::STATUS_PUBLISHED) {
-            return false;
-        }
+        $this->talk = $talk;
 
         return true;
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->talk->status === Talk::STATUS_PUBLISHED) {
+                $validator->errors()->add('status', 'Published talk can not be updated');
+            }
+        });
     }
 
     public function rules()
