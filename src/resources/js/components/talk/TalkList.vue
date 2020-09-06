@@ -29,7 +29,7 @@
 </template>
 
 <script>
-let fields = ["topic", "description", "email"]
+let fields = ["topic", "description"]
 export default {
     name: "TalkList",
     data() {
