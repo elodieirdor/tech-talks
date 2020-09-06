@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-table striped hover :items="talks" :fields="fields" :busy="busy">
+        <b-table striped hover :items="talks" :fields="fields" :busy="busy" show-empty>
             <template v-slot:table-busy>
                 <div class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>
@@ -11,17 +11,15 @@
                 <router-link
                     :to="{ name: 'edit_talk', params: { id: row.item.id }}"
                     tag="button"
-                    class="btn mr-1 btn-secondary btn-sm"
+                    class="btn mb-2 btn-secondary btn-sm"
                     v-if="row.item.status !== 'published'"
                 >Edit
                 </router-link>
-                <button
-                    type="button"
-                    class="btn mr-1 btn-success btn-sm"
-                    @click="publish(row.item.id, row.index)"
-                    v-if="row.item.status !== 'published'"
-                >Publish
-                </button>
+                <FormButton :is-loading="isPublishing" submit-text="Publish"
+                            type="button"
+                            btn-class="btn-success btn-sm"
+                            @onBtnClick="publish(row.item.id, row.index)"
+                            v-if="row.item.status !== 'published'"/>
                 <span v-else>Published</span>
             </template>
         </b-table>
@@ -29,21 +27,28 @@
 </template>
 
 <script>
-let fields = ["topic", "description", "email"]
+import FormButton from "../ui/FormButton";
+
 export default {
     name: "TalkList",
+    components: {FormButton},
+    mounted() {
+        if (this.canEdit) {
+            this.fields.unshift('date');
+            this.fields = this.fields.concat(['actions']);
+        }
+    },
     data() {
         return {
-            fields: this.canEdit ? fields.concat(['actions']) : fields,
+            fields: ["topic", "description"],
+            isPublishing: false
         };
     },
     methods: {
         publish(id, index) {
-            const config = {
-                headers: {Authorization: `Bearer ${this.$store.state.token}`}
-            }
+            this.isPublishing = true;
             window.axios
-                .put(`/api/talks/${id}`, {}, config)
+                .put(`/api/talks/${id}`)
                 .then(response => {
                     this.talks.splice(index, 1, response.data.data)
                 })
@@ -51,6 +56,9 @@ export default {
                     if (error.response) {
                         this.errors = error.response.data.errors;
                     }
+                })
+                .finally(() => {
+                    this.isPublishing = false;
                 })
         }
     },

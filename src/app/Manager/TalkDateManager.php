@@ -17,14 +17,13 @@ class TalkDateManager
     {
         $talkDay = self::TALK_DAY;
         $month = $date->format('m');
-        $year = $date->format('Y');
 
         $d = clone $date;
 
         if ($month % 2 === 0) {
             // get first wednesday of the month
-            // ie : first wednesday 2020-12
-            $str = "first $talkDay $year-$month";
+            // ie : first wednesday of December 2020
+            $str = sprintf("first %s of %s %d", self::TALK_DAY, $date->format('F'), $date->format('Y'), );
             $talkOfMonth = (new \DateTime())->setTimestamp(strtotime($str))->setTime(0, 0);
 
             if ($date < $talkOfMonth) {
@@ -65,7 +64,7 @@ class TalkDateManager
             return false;
         }
 
-        $str = sprintf("first %s %d-%d", self::SUBMISSION_TALK_DAY, $submissionDate->format('Y'), $month);
+        $str = sprintf("first %s of %s %d", self::SUBMISSION_TALK_DAY, $submissionDate->format('F'), $submissionDate->format('Y'), );
         $submissionDayOfMonth = (new \DateTime())->setTimestamp(strtotime($str))->setTime(0, 0);
         if ($submissionDate != $submissionDayOfMonth) {
             return false;

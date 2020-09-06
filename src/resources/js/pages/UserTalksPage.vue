@@ -30,11 +30,8 @@ export default {
     methods: {
         getTalks() {
             this.isBusy = true;
-            const config = {
-                headers: {Authorization: `Bearer ${this.$store.state.token}`}
-            }
             window.axios
-                .get('/api/user/my-talks', config)
+                .get('/api/user/my-talks')
                 .then(response => {
                     this.items = response.data.data;
                     this.isBusy = false;

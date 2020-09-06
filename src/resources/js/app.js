@@ -11,6 +11,17 @@ Vue.config.productionTip = false;
 
 require('./bootstrap');
 
+window.axios.interceptors.request.use(function (config) {
+    const token = store.state.token;
+    if (token) {
+        config.headers['Authorization'] =  `Bearer ${token}`;
+    }
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
+
 if (localStorage.getItem('user') && localStorage.getItem('token')) {
     store.commit('autoAuthenticate');
 }

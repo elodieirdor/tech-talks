@@ -19,6 +19,7 @@ class TalkRepository extends BaseRepository
 
         return Talk::where('status', Talk::STATUS_PUBLISHED)
             ->whereBetween('date', [$from, $talkDate])
+            ->orderBy('created_at', 'ASC')
             ->get();
     }
 }

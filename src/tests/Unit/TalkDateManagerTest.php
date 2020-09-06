@@ -86,4 +86,12 @@ class TalkDateManagerTest extends TestCase
         $currentDate = new \DateTime('2020-10-05');
         $this->assertTrue($talkDateManager->isSubmissionDateValid($submissionDate, $currentDate));
     }
+
+    public function testisSubmissionDateValidWithDateInFuture()
+    {
+        $talkDateManager = new TalkDateManager();
+        $submissionDate = new \DateTime('2020-12-01');
+        $currentDate = new \DateTime('2020-09-06');
+        $this->assertTrue($talkDateManager->isSubmissionDateValid($submissionDate, $currentDate));
+    }
 }
