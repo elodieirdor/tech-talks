@@ -27,8 +27,15 @@ class AuthController extends Controller
      *     @OA\Response(
      *          response=422,
      *          description="Validation error",
-     *          @OA\MediaType(
-     *              mediaType="application/json",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *              @OA\Property(
+     *                  property="errors",
+     *                  type="object"
+     *              ),
      *          )
      *     ),
      *)

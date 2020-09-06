@@ -89,7 +89,7 @@
         "/talks/upcoming": {
             "get": {
                 "tags": [
-                    "talks"
+                    "talk"
                 ],
                 "summary": "List upcoming talks",
                 "operationId": "upcoming",
@@ -121,7 +121,7 @@
         "/user/my-talks": {
             "get": {
                 "tags": [
-                    "talks"
+                    "talk"
                 ],
                 "summary": "List user talks",
                 "operationId": "userTalks",
@@ -150,7 +150,93 @@
                     "401": {
                         "description": "Unauthorised",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/talks": {
+            "post": {
+                "tags": [
+                    "talk"
+                ],
+                "summary": "Create a talk",
+                "operationId": "create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreTalkRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Talk"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorised",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
                         }
                     }
                 },
@@ -164,7 +250,7 @@
         "/talks/{id}": {
             "get": {
                 "tags": [
-                    "talks"
+                    "talk"
                 ],
                 "summary": "List a user talk",
                 "operationId": "read",
@@ -200,7 +286,16 @@
                     "401": {
                         "description": "Unauthorised",
                         "content": {
-                            "application/json": {}
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
                         }
                     },
                     "404": {
@@ -265,6 +360,35 @@
                         "title": "password",
                         "description": "Password of the user",
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreTalkRequest": {
+                "title": "Store Talk request",
+                "description": "Store User request body data",
+                "required": [
+                    "topic",
+                    "description",
+                    "date"
+                ],
+                "properties": {
+                    "topic": {
+                        "title": "topic",
+                        "description": "Topic",
+                        "type": "string",
+                        "maximum": 80
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Description of the talk",
+                        "type": "string"
+                    },
+                    "date": {
+                        "title": "date",
+                        "description": "Date",
+                        "type": "string",
+                        "format": "date"
                     }
                 },
                 "type": "object"

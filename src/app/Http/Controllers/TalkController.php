@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factory\Model\TalkFactory;
-use App\Http\Requests\StoreTalk;
+use App\Http\Requests\StoreTalkRequest;
 use App\Manager\TalkDateManager;
 use App\Manager\TalkManager;
 use App\Repository\TalkRepository;
@@ -24,7 +24,7 @@ class TalkController extends Controller
     /**
      * @OA\Get(
      *     path="/talks/upcoming",
-     *     tags={"talks"},
+     *     tags={"talk"},
      *     summary="List upcoming talks",
      *     operationId="upcoming",
      *     @OA\Response(
@@ -60,7 +60,7 @@ class TalkController extends Controller
     /**
      * @OA\Get(
      *     path="/user/my-talks",
-     *     tags={"talks"},
+     *     tags={"talk"},
      *     summary="List user talks",
      *     operationId="userTalks",
      *     security={
@@ -84,8 +84,11 @@ class TalkController extends Controller
      *     @OA\Response(
      *          response=401,
      *          description="Unauthorised",
-     *          @OA\MediaType(
-     *              mediaType="application/json",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
      *          )
      *     ),
      *)
@@ -102,7 +105,60 @@ class TalkController extends Controller
         );
     }
 
-    public function create(StoreTalk $request, TalkFactory $talkFactory)
+    /**
+     * @OA\Post(
+     *     path="/talks",
+     *     tags={"talk"},
+     *     summary="Create a talk",
+     *     operationId="create",
+     *     security={
+     *          {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(ref="#/components/schemas/StoreTalkRequest")
+     *     ),
+     *     @OA\Response(
+     *          response=201,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="success",
+     *                  type="boolean"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  ref="#/components/schemas/Talk"
+     *              )
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=422,
+     *          description="Validation error",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *              @OA\Property(
+     *                  property="errors",
+     *                  type="object"
+     *              ),
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=401,
+     *          description="Unauthorised",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
+     *          )
+     *     ),
+     *)
+     **/
+    public function create(StoreTalkRequest $request, TalkFactory $talkFactory)
     {
         $talk = $talkFactory->createFromRequest($request, auth()->user());
 
@@ -118,7 +174,7 @@ class TalkController extends Controller
     /**
      * @OA\Get(
      *     path="/talks/{id}",
-     *     tags={"talks"},
+     *     tags={"talk"},
      *     summary="List a user talk",
      *     operationId="read",
      *     security={
@@ -150,8 +206,11 @@ class TalkController extends Controller
      *     @OA\Response(
      *          response=401,
      *          description="Unauthorised",
-     *          @OA\MediaType(
-     *              mediaType="application/json",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string"
+     *              ),
      *          )
      *     ),
      *     @OA\Response(
@@ -193,7 +252,7 @@ class TalkController extends Controller
         );
     }
 
-    public function edit(StoreTalk $request, int $id, TalkManager $talkManager)
+    public function edit(StoreTalkRequest $request, int $id, TalkManager $talkManager)
     {
         /** @var Talk $talk */
         $talk = auth()->user()->talks->find($id);
