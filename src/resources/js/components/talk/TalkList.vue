@@ -21,6 +21,7 @@
                             @onBtnClick="publish(row.item.id, row.index)"
                             v-if="row.item.status !== 'published'"/>
                 <span v-else>Published</span>
+                <div v-if="errors[row.item.id]" class="error-message">{{ errors[row.item.id] }}</div>
             </template>
         </b-table>
     </div>
@@ -41,12 +42,14 @@ export default {
     data() {
         return {
             fields: ["topic", "description"],
-            isPublishing: false
+            isPublishing: false,
+            errors: {},
         };
     },
     methods: {
         publish(id, index) {
             this.isPublishing = true;
+            this.errors = {};
             window.axios
                 .put(`/api/talks/${id}`)
                 .then(response => {
@@ -54,7 +57,7 @@ export default {
                 })
                 .catch(error => {
                     if (error.response) {
-                        this.errors = error.response.data.errors;
+                        this.errors[id] = error.response.data.errors.date.join(' ');
                     }
                 })
                 .finally(() => {
@@ -78,3 +81,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.error-message {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+</style>

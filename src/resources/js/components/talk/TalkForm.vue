@@ -45,6 +45,9 @@
             <b-form-invalid-feedback id="date-feedback" v-if="errors.date">
                 {{ errors.date.join() }}
             </b-form-invalid-feedback>
+            <b-form-text id="topic-help-block">
+                The date has to be the first Tuesday of the current or a future month. (Up to 6 months)
+            </b-form-text>
 
         </div>
         <FormButton :is-loading="isLoading" />

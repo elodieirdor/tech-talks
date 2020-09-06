@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Factory\Model\TalkFactory;
+use App\Http\Requests\PublishTalkRequest;
 use App\Http\Requests\StoreTalkRequest;
 use App\Manager\TalkDateManager;
 use App\Manager\TalkManager;
@@ -379,20 +380,6 @@ class TalkController extends Controller
      *          )
      *     ),
      *     @OA\Response(
-     *          response=404,
-     *          description="Talk not found",
-     *          @OA\JsonContent(
-     *              @OA\Property(
-     *                  property="success",
-     *                  type="boolean"
-     *              ),
-     *              @OA\Property(
-     *                  property="message",
-     *                  type="string"
-     *              ),
-     *          )
-     *     ),
-     *     @OA\Response(
      *          response=401,
      *          description="Unauthorised",
      *          @OA\JsonContent(
@@ -414,20 +401,10 @@ class TalkController extends Controller
      *     ),
      *)
      **/
-    public function publish(int $id, TalkManager $talkManager)
+    public function publish(PublishTalkRequest $publishTalkRequest, TalkManager $talkManager)
     {
         /** @var Talk $talk */
-        $talk = auth()->user()->talks->find($id);
-
-        if (null === $talk) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'message' => 'The talk does not exist'
-                ],
-                404
-            );
-        }
+        $talk = auth()->user()->talks->find($publishTalkRequest->id);
 
         $published = $talkManager->publish($talk);
         if (false === $published) {
