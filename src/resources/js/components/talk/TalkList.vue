@@ -35,17 +35,18 @@
 
 <script>
 import FormButton from "../ui/FormButton";
-let fields = ["topic", "description"]
 export default {
     name: "TalkList",
     components: {FormButton},
-    data() {
+    mounted() {
         if (this.canEdit) {
-            fields.unshift('date')
-            fields = fields.concat(['actions'])
+            this.fields.unshift('date');
+            this.fields = this.fields.concat(['actions']);
         }
+    },
+    data() {
         return {
-            fields,
+            fields: ["topic", "description"],
             isPublishing: false
         };
     },
