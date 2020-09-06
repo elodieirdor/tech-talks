@@ -47,15 +47,15 @@
             </b-form-invalid-feedback>
 
         </div>
-        <div class="button-container mt-3">
-            <b-button type="submit" variant="primary">Submit</b-button>
-        </div>
+        <FormButton :is-loading="isLoading" />
     </b-form>
 </template>
 
 <script>
+import FormButton from "../ui/FormButton";
 export default {
     name: "TalkForm",
+    components: {FormButton},
     props: {
         talk: {
             required: false,
@@ -93,6 +93,7 @@ export default {
                 date: "",
             },
             errors: {},
+            isLoading: false,
         };
 
     },
@@ -106,6 +107,8 @@ export default {
                 this.errors = Object.assign({}, formErrors);
                 return;
             }
+
+            this.isLoading = true;
 
             const talk = {topic: this.form.topic, description: this.form.description, date: this.form.date};
             let url;
@@ -128,6 +131,9 @@ export default {
                     if (error.response) {
                         this.errors = error.response.data.errors;
                     }
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 })
         },
         validateForm() {

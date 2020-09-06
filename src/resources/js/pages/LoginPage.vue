@@ -30,18 +30,17 @@
                     {{ errors.authentication }}
                 </b-form-invalid-feedback>
             </div>
-            <div class="button-container mt-3">
-                <b-button type="submit" variant="primary">Submit
-                </b-button>
-            </div>
+            <FormButton :is-loading="isLoading"/>
         </b-form>
     </div>
 </template>
 
 
 <script>
+import FormButton from "../components/ui/FormButton";
 export default {
     name: "LoginPage",
+    components: {FormButton},
     data() {
         return {
             form: {
@@ -49,6 +48,7 @@ export default {
                 password: '',
             },
             errors: {},
+            isLoading: false,
         };
     },
     methods: {
@@ -62,6 +62,8 @@ export default {
                 return;
             }
 
+            this.isLoading = true;
+
             const auth = {email: this.form.email, password: this.form.password};
             window.axios
                 .post('/api/user/login', auth)
@@ -71,7 +73,10 @@ export default {
                     this.$router.push({name: 'index'});
                 })
                 .catch(error => {
-                    this.errors = {authentication:'Email / Password invalid'};
+                    this.errors = {authentication: 'Email / Password invalid'};
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 })
         },
         reset() {

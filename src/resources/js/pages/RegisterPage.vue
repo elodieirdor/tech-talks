@@ -49,17 +49,16 @@
                     {{ errors.confirmPassword.join() }}
                 </b-form-invalid-feedback>
             </div>
-            <div class="button-container mt-3">
-                <b-button type="submit" variant="primary">Submit
-                </b-button>
-            </div>
+            <FormButton :is-loading="isLoading"/>
         </b-form>
     </div>
 </template>
 
 <script>
+import FormButton from "../components/ui/FormButton";
 export default {
     name: "RegisterPage",
+    components: {FormButton},
     data() {
         return {
             form: {
@@ -68,6 +67,7 @@ export default {
                 confirmPassword: '',
             },
             errors: {},
+            isLoading: false,
         };
     },
     methods: {
@@ -80,6 +80,7 @@ export default {
                 this.errors = Object.assign({}, formErrors);
                 return;
             }
+            this.isLoading = true;
 
             const name = this.form.email.slice(0, this.form.email.indexOf('@'));
             let user = {email: this.form.email, password: this.form.password, name};
@@ -88,12 +89,15 @@ export default {
                 .then(response => {
                     this.$store.commit('authenticate', response.data);
                     this.reset();
-                    this.$router.push({name: 'index'});
+                    this.$router.push({name: 'user_talks'});
                 })
                 .catch(error => {
                     if (error.response) {
                         this.errors = error.response.data.errors;
                     }
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 })
         },
         reset() {

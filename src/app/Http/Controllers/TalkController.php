@@ -36,7 +36,7 @@ class TalkController extends Controller
 
     public function userTalks()
     {
-        $talks = auth()->user()->talks;
+        $talks = auth()->user()->talks->sortBy('date')->values()->all();
 
         return response()->json(
             [
