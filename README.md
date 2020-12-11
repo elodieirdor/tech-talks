@@ -1,5 +1,7 @@
 # Tech talks
 
+This project has been done for a technical interview. 2nd time I am using Laravel, some improvements can be done.
+
 ## Installation
 
 ### Create parameters for the environment
